@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>重复请求</title>
+</head>
+<body>
+    <button>点击发送</button>
+    <script>
+        // 获取元素对象
+        const btn = document.querySelector('button');
+        let x = null;
+        // 1. 设定标识变量，并给一个默认值为假
+        let isSending = false;  // 是否正在发送ajax请求
+        // 给第一个按钮绑定事件并且执行函数
+        btn.onclick = function() {
+            // 2. 判断表示变量是否是ture，也就是已经被点击过
+            if(isSending) x.abort();  // 如果表示变量被改成了true，也就是发送过请求，那就取消上一次发送的请求
+            x = new XMLHttpRequest();  // 创建实例对象
+            // 修改标识变量的值 
+            isSending = true;
+            x.open('get','http://127.0.0.1:8000/delay');
+            x.send(); 
+            // 3. 如果请求已经完成，那就将状态改为假
+            x.onreadystatechange = function() {
+                if(x.readyState === 4) {
+                    // 修改表示变量
+                    isSending = false;
+                }
+            }
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        #result {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <button>点击发送请求</button>
+    <div id="result"></div>
+    <script>
+        const btn = document.querySelector('button');
+        const result = document.getElementById('result');
+
+        btn.addEventListener('click',function() {
+            // 先创建一个xml实例
+            const xhr = new XMLHttpRequest();
+            // 超时设置 5s 设置
+            xhr.timeout = 5000;   // 5s还没有结果那就直接取消操作
+            // 超时回调
+            xhr.ontimeout = function() {
+                alert('网络已经超时,请重新执行');
+            }
+            // 网络异常的回调设置
+            xhr.onerror = function() {
+                alert('您的网络似乎出了一些问题');
+            }
+            // 发出get请求，规定请求的类型url以及是否同步异步操作
+            xhr.open('GET','http://127.0.0.1:8000/delay');
+            // 将请求发送的服务器
+            xhr.send();
+            // 	存储函数（或函数名），每当 readyState 属性改变时，就会调用该函数。
+            xhr.onreadystatechange = function() {
+                if(xhr.readyState === 4 && xhr.status >= 200 && xhr.status < 300) {
+                    result.innerHTML = xhr.response;
+                }
+            }
+        })
+    </script>
+</body>
+</html>

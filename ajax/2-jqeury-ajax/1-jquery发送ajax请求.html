@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jquery 发送 ajax 请求</title>
+    <script src="./jquery.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <h2 class="page-header">jquery发送ajax请求</h2>
+        <button class="btn btn-primary">GET</button>
+        <button class="btn btn-danger">POST</button>
+        <button class="btn btn-info">通用型方法ajax</button>
+    </div>
+    <script>
+        // 通过jquery发送get请求
+        $('button').eq(0).click(function() {
+            $.get('http://127.0.0.1:8000/jquery-server',{a:100,b:200},function(data) {
+                console.log(data);
+            },'json');  // 规定类型为json
+        })
+        // 通过jquery发送post请求
+        $('button').eq(1).click(function() {
+            $.post('http://127.0.0.1:8000/jquery-server',{a:200,b:300},function(data) {
+                console.log(data);
+            }); // 如果不规定类型返回的结果是字符串
+        })
+    </script>
+</body>
+</html>
