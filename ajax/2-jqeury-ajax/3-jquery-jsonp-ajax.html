@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>通过jquery的jsonp发送ajax请求</title>
+    <script src="./jquery.min.js"></script>
+    <style>
+        #result {
+            width: 200px;
+            height: 100px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <button>点击发送jonsp请求</button>
+    <div id="result"></div>
+    <script>
+        // 我们找到button元素然后选择并绑定点击事件，进入执行函数
+        $('button').eq(0).click(function() {
+            // 通过getJSON方法 其中需要传递的参数分别是getJSON(url,data,success(data,status,xhr))
+            $.getJSON('http://127.0.0.1:8000/jquery-jsonp-server?callback=?',function(data) {  // ?callback=? 为固定格式
+                // console.log(data);
+                // 找到div元素，并通过html方法将json格式的data中的属性值写入html中
+                $('#result').html(` 
+                    名称: ${data.name},
+                    校区: ${data.city}
+                `)
+            });
+        });
+    </script>
+</body>
+</html>

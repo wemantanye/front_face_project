@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>jsonp 跨域操作</title>
+    <style>
+        #result {
+            width: 200px;
+            height: 200px;
+            border: 1px solid #ccc;
+        }
+    </style>
+</head>
+<body>
+    <div id="result"></div>
+    <script>
+        //因为script标签本身来说就是可以跨域的，因此可以利用scri标签做跨域操作
+        function handle(data) {
+            // 获取 result元素
+            const result = document.getElementById('result');
+            // console.log(result);
+            result.innerHTML = data.name; // 通过innerHTML方法赋data中的属性name的值
+        }
+    </script>
+    <!-- 通过script标签进行跨域执行响应server的操作 -->
+    <script src="http://127.0.0.1:8000/jsonp-server"></script>
+</body>
+</html>

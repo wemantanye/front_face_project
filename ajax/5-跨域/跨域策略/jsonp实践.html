@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>json 实践</title>
+</head>
+<body>
+    用户名:<input type="text" id="username">
+    <p></p>
+    <script>
+        // 需求：用户填入内容，每当焦点丧失就返回服务端信息
+        // 告知用户已被注册，并将input改为红色
+        // 1. 获取元素
+        const input = document.querySelector('input');
+        const p = document.querySelector('p')
+        // 声明handle函数
+        function handle(data) {
+            input.style.border = 'solid 1px #f00';
+            // 修改p标签的提升文本
+            p.innerHTML = data.msg;
+        }
+        // 2. 绑定事件
+        input.onblur = function() {
+            // 获取用户的输入
+            let username = this.value;
+            // 向服务器发送请求 监测用户是否存在 三部曲
+            // 1. 创建script标签
+            const script = document.createElement('script');
+            // 2. 设置标签的src属性
+            script.src = 'http://127.0.0.1:8000/check-usename';
+            // 3. 将script插入文档中
+            document.body.appendChild(script);
+        }
+    </script>
+</body>
+</html>
